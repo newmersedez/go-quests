@@ -2,10 +2,17 @@ package hello_world
 
 import (
 	"bytes"
-	"fmt"
 	"os"
 	"testing"
 )
+
+func TestMain(m *testing.M) {
+	code := m.Run()
+	if code == 0 {
+		println("Success! Completed the Hello Go Quest 🎉")
+	}
+	os.Exit(code)
+}
 
 func TestHelloWorld(t *testing.T) {
 	old := os.Stdout
@@ -25,5 +32,4 @@ func TestHelloWorld(t *testing.T) {
 	if got != want {
 		t.Fatalf("expected %q, got %q", want, got)
 	}
-	fmt.Println("Success! Completed the Hello Go Quest 🎉")
 }

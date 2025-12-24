@@ -2,8 +2,18 @@ package values
 
 import (
 	"fmt"
+	"os"
 	"testing"
 )
+
+func TestMain(m *testing.M) {
+	code := m.Run()
+	if code == 0 {
+		fmt.Println("Success! Completed the Values Quest 🎉")
+	}
+	os.Exit(code)
+
+}
 
 func TestBuildValues(t *testing.T) {
 	r := BuildValues()
@@ -55,5 +65,4 @@ func TestBuildValues(t *testing.T) {
 	if r.ZeroMap != nil {
 		t.Errorf("zero map should be nil")
 	}
-	fmt.Println("Success! Completed the Values Quest 🎉")
 }

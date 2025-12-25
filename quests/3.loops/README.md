@@ -139,8 +139,8 @@ Everything else (including non-letters) should be treated as consonants unless s
 
 Run tests using:
 
-```
-go test ./loops/solution
+```bash
+go test ./loops/solution -v
 ```
 
 Do not add logging or printing. Your implementation should be pure and deterministic.

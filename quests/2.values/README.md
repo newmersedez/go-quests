@@ -29,6 +29,7 @@ different Go value types.
 12. Leave a map uninitialized to demonstrate a zero value
 
 Do not print anything. Only return values.
+
 ### Go Values – Ultra-Quick Cheat Sheet
 
 **Basic types**
@@ -82,6 +83,6 @@ Go is statically typed, everything has a clear value and a predictable zero stat
 
 Run tests using:
 
-```
-go test ./values/solution
+```bash
+go test ./values/solution -v
 ```

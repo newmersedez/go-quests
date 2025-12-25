@@ -22,5 +22,5 @@ Implement the function so that it outputs the required string to standard output
 From the root of the repository, run:
 
 ```bash
-go test ./quests/solution
+go test ./quests/solution -v
 ```

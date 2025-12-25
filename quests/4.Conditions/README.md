@@ -276,7 +276,7 @@ This keeps the logic readable and idiomatic.
 ## Run Tests
 
 ```bash
-go test ./conditions/solution
+go test ./conditions/solution -v
 ```
 
 Do not add logging or printing.

@@ -280,5 +280,5 @@ c.AllKeys() // contains "b", "c"
 ## Run Tests
 
 ```bash
-go test ./maps/solution
+go test ./maps/solution -v
 ```

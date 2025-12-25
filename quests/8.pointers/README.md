@@ -228,5 +228,5 @@ This task separates surface-level understanding from real understanding.
 ## Run Tests
 
 ```bash
-go test ./pointers/solution
+go test ./pointers/solution -v
 ```

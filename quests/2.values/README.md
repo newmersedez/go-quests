@@ -81,8 +81,14 @@ slice/map/pointer → nil
 **Key idea:**
 Go is statically typed, everything has a clear value and a predictable zero state.
 
-Run tests using:
+From the root of the repository, run:
 
 ```bash
 go test ./quests/2.values -v
+```
+
+Or from the ./quests/2.values directory, run:
+
+```bash
+go test -v
 ```

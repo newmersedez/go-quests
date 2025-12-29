@@ -12,7 +12,7 @@ Implement the function so that it outputs the required string to standard output
 
 ## Instructions
 
-1. Navigate to the `quests/solution` directory.
+1. Navigate to the `quests/1.hello_go` directory.
 2. Implement the required function in `solution.go`.
 3. Do not modify the test files.
 4. Ensure the output matches exactly, including punctuation and casing.
@@ -23,4 +23,10 @@ From the root of the repository, run:
 
 ```bash
 go test ./quests/1.hello_go -v
+```
+
+Or from the ./quests/1.hello_go directory, run:
+
+```bash
+go test -v
 ```

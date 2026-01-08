@@ -1,53 +1,46 @@
-## Go Quest: Coordinated Tickers (`hello` & `world`)
+# Go Tickers
+
+## Concept
+Tickers define a channel that delivers a "tick" of a clock at intervals. By using `select`, a goroutine can wait on multiple tickers and other channels (like a stop signal) simultaneously, allowing for coordinated periodic tasks.
+
+## References
+- https://gobyexample.com/tickers
+- https://pkg.go.dev/time#Ticker
+- https://go.dev/tour/concurrency/5
+
+## Quest
 
 ### Objective
-
-Use **multiple `time.Ticker`s and channels** to print messages at different fixed intervals, while ensuring the program terminates cleanly after a fixed duration.
-
----
+Implement `Ticker` to print messages at fixed intervals using two separate tickers, running for a specific duration before exiting cleanly.
 
 ### Requirements
 
-1. Create **two tickers**:
+#### Tickers
+- **`helloTicker`**: Ticks every **500 ms**.
+- **`worldTicker`**: Ticks every **1000 ms**.
 
-   - `helloTicker`: ticks every **500 milliseconds**
-   - `worldTicker`: ticks every **1000 milliseconds**
+#### Behavior
+- Run a loop using `select` to handle ticker events.
+- On `helloTicker` tick: Print `"hello"`.
+- On `worldTicker` tick: Print `"world"`.
+- **Duration**: The loop must run for exactly **3 seconds**.
+- After 3 seconds:
+    - Stop both tickers.
+    - Exit the function (and goroutine).
 
-2. Behavior:
+#### Output Format
+- Plain strings followed by a newline (handled by `fmt.Println` or equivalent).
+- No extra text.
 
-   - On every tick from `helloTicker`, print:
+### Inputs
+- None.
 
-     ```
-     hello
-     ```
+### Outputs
+- Sequence of "hello" and "world" printed to stdout.
 
-   - On every tick from `worldTicker`, print:
-
-     ```
-     world
-     ```
-
-3. Duration:
-
-   - The program must run for **exactly 1 second**
-   - After 1 second:
-
-     - Both tickers must be **stopped**
-     - The program must **exit gracefully** (no goroutine leaks)
-
-4. Constraints:
-
-   - Use `select` to listen to ticker channels
-   - Do **not** use `time.Sleep` inside the goroutine loop
-   - Use a `done` channel or equivalent signal to stop execution
-
----
-
-### Expected Output (order may vary slightly due to scheduling)
-
-Within ~3 second, you should observe:
-
-```
+### Examples
+Expected sequence over 3 seconds:
+```text
 hello
 hello
 world
@@ -58,35 +51,21 @@ hello
 hello
 world
 ```
+(Note: Exact order of simultaneous ticks depends on runtime scheduling, but the tests verify this specific sequence).
 
-Explanation:
-
-- `hello` → at ~0.5s and ~1.0s
-- `world` → at ~1.0s
-
----
-
-### What This Quest Tests
-
-- Understanding that **tickers emit values on channels**
-- Correct use of `select` with **multiple time sources**
-- Coordinating **concurrent periodic events**
-- Proper **lifecycle management** of tickers and goroutines
-
----
-
-## References
-
-These explain the same ideas with examples:
-
-- [https://gobyexample.com/tickers](https://gobyexample.com/tickers)
-
----
-
-### Running the Tests
-
-Once implemented, run:
-
+## Testing
+To run the tests, execute the following command from the root directory:
 ```bash
-go test ./quests/18.tickers -v
+go test -v ./quests/18.tickers
+```
+
+Or from the quest directory:
+```bash
+go test -v
+```
+Expected output:
+```text
+=== RUN   TestTicker
+--- PASS: TestTicker (3.00s)
+PASS
 ```

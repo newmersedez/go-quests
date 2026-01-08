@@ -1,113 +1,79 @@
-# Go Select & Timeout Quest — Goroutine Timing
+# Go Select & Timeouts
 
-This quest focuses on **goroutine timing** and how the `select` statement reacts to **channel readiness**, not code order.
+## Concept
+The `select` statement lets a goroutine wait on multiple communication operations. It blocks until one of its cases is ready to run. If multiple are ready, it chooses one at random. Timeouts can be implemented using `time.After`.
 
-All goroutines start at the same time.
-The **only reason** messages arrive in a specific order must be **different timeouts** inside each goroutine.
+## References
+- https://gobyexample.com/select
+- https://gobyexample.com/timeouts
+- https://go.dev/tour/concurrency/5
 
----
+## Quest
 
-## Objective
+### Objective
+Implement `FunctionOrdered` to receive messages from 5 concurrently running goroutines in a specific order (`c1`→`c4`→`c2`→`c5`→`c3`) by solely using **timeouts** to control when each channel becomes ready.
 
-Implement `FunctionOrdered` such that messages are received in this exact order:
+### Requirements
 
-1. `c1`
-2. `c4`
-3. `c2`
-4. `c5`
-5. `c3`
+#### `FunctionOrdered`
+- Create 5 unbuffered channels: `c1` through `c5`.
+- Start 5 goroutines, one for each channel.
+- Inside each goroutine:
+    - Sleep for a specific duration (using `time.Sleep`).
+    - Send a specific string to the assigned channel.
+- Use a `select` loop (running 5 times) to receive from any ready channel.
+- Print the received message immediately.
 
-The receiving logic **must not** enforce this order manually.
-The order must emerge **naturally** from timing.
+#### Order & Timing
+- **Strict Output Order**: `c1` → `c4` → `c2` → `c5` → `c3`
+- **Mechanism**: The order must be achieved by setting appropriate sleep durations in each goroutine.
+    - `c1`: Fastest
+    - `c4`: 2nd fastest
+    - `c2`: 3rd fastest
+    - `c5`: 4th fastest
+    - `c3`: Slowest
 
----
+#### Channel Messages
+- `c1` sends `"from c1"`
+- `c2` sends `"from c2"`
+- `c3` sends `"from c3"`
+- `c4` sends `"from c4"`
+- `c5` sends `"from c5"`
 
-## Core Rules
+### Inputs
+- None.
 
-- Use **5 goroutines**
-- Use **5 unbuffered channels**: `c1` → `c5`
-- Every goroutine must:
+### Outputs
+- Prints 5 lines to stdout in the exact required order.
 
-  - Include a **timeout**
-  - Send **exactly one message** to its channel
-
-- Use **one `select` loop** to receive
-- Do **not** use:
-
-  - `time.Sleep`
-  - `sync.WaitGroup`
-  - buffered channels
-  - conditional ordering logic
-
----
-
-## Channel Message Contract (Strict)
-
-Each channel must send **only** the following string:
-
-- `c1` → `"from c1"`
-- `c2` → `"from c2"`
-- `c3` → `"from c3"`
-- `c4` → `"from c4"`
-- `c5` → `"from c5"`
-
-No extra text. No formatting changes.
-
----
-
-## Single Example (Pattern Only)
-
-Each goroutine should follow this **pattern**:
-
+### Examples
+Implementation logic:
 ```go
 go func() {
-    // wait using a timeout
-    // send exactly one string to its channel
+    time.Sleep(10 * time.Millisecond) // Shortest wait
+    c1 <- "from c1"
 }()
+// ... other goroutines with increasing delays ...
 ```
 
-The **timeout duration** determines **when** the message becomes available — and therefore **when `select` receives it**.
-
----
-
-## What This Quest Tests
-
-- Understanding that `select` reacts to **readiness**, not order
-- Correct use of **timeouts inside goroutines**
-- Ability to reason about **concurrent timing**
-- Letting channels, not logic, control flow
-
----
-
-## Success Condition
-
-If implemented correctly, the output will **always** be:
-
+## Testing
+To run the tests, execute the following command from the root directory:
+```bash
+go test -v ./quests/17.select_timeout
 ```
+
+Or from the quest directory:
+```bash
+go test -v
+```
+Expected output:
+```text
+=== RUN   TestFunctionOrdered
 from c1
 from c4
 from c2
 from c5
 from c3
-```
-
-If the order changes, the timing logic is incorrect.
-
----
-
-## References
-
-These explain the same ideas with examples:
-
-- [https://gobyexample.com/select](https://gobyexample.com/select)
-- [https://gobyexample.com/timeouts](https://gobyexample.com/timeouts)
-
----
-
-## Running the Tests
-
-Once implemented, run:
-
-```bash
-go test ./quests/17.select_timeout -v
+--- PASS: TestFunctionOrdered (0.11s)
+PASS
 ```

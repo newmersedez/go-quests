@@ -1,5 +1,9 @@
 # Go Quests
 
+![Go Quests banner](https://images.steamusercontent.com/ugc/964242373533560541/F1BD3729A9743D8D062FE780774044B192356454/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false)
+
+> If these quests helped you learn Go, please consider starring the repo.
+
 
 A beginner-friendly set of small Go exercises (“quests”). Each quest is intentionally small so you can practice one Go concept at a time.
 
@@ -109,15 +113,12 @@ This repo is designed so that tests teach you the spec: make changes → run tes
   Clear the test cache:
   ```sh
   go clean -testcache
----
-
-### Support
-If these quests helped you learn Go, please consider starring the repo.
+  ```
 
 ---
 
 ### Contact
 
 For any issues, contact either:
-- `yadlamaniymn2005@gmail.com`
-- `ananyapappula2004@gmail.com`
+- `https://x.com/mani_yadla_`
+- `https://x.com/AnanyaPappula`

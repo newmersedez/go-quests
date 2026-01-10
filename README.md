@@ -18,6 +18,7 @@ You implement functions in `solution.go` and confirm correctness with unit tests
 - [Golang](https://go.dev/dl/) (install from the official site)
 - [Visual Studio Code](https://code.visualstudio.com/download) (install from the official site)
 - [VS Code Go extension](https://marketplace.visualstudio.com/items?itemName=golang.Go)
+- [VS Code Readme extension](https://marketplace.visualstudio.com/items?itemName=manishsencha.readme-preview)
 - [Git](https://git-scm.com/install/) (optional, but recommended)
 
 
@@ -68,7 +69,7 @@ cd go-quests # This command helps you go into the quest directory from the termi
 ### How to solve a quest (intended workflow)
 1. Open the repo folder in VS Code (Or any other IDE of your choice)
 2. Pick a quest folder under `quests/` (start with smaller numbers first)
-3. Read `quests/<n.topic>/README.md` fully. Go through the reference links/docs mentioned to get a thorough idea of the concept.
+3. Read `quests/<n.topic>/README.md` thoroughly. Review all referenced links and documentation to gain a complete understanding of the underlying concept. If the preview does not render correctly, use **Ctrl + Shift + V** to open the README in preview mode for improved readability.
 4. Open the solution file:
    - Example: `quests/10.structs/solution.go`
 5. Implement the required functions/methods. 

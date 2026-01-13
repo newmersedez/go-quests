@@ -1,5 +1,7 @@
 package interfaces
 
+import "fmt"
+
 type PaymentMethod interface {
 	Process(amount float64) bool
 	Provider() string
@@ -11,15 +13,15 @@ type CardPayment struct {
 }
 
 func (c *CardPayment) Process(amount float64) bool {
-	// TODO: implement
-	// Read README.md for the instructions
-	return false
+	check := c.Limit >= amount
+	if check {
+		c.Limit -= amount
+	}
+	return check
 }
 
 func (c CardPayment) Provider() string {
-	// TODO: implement
-	// Read README.md for the instructions
-	return ""
+	return "CARD"
 }
 
 type UPIPayment struct {
@@ -27,15 +29,11 @@ type UPIPayment struct {
 }
 
 func (u UPIPayment) Process(amount float64) bool {
-	// TODO: implement
-	// Read README.md for the instructions
-	return false
+	return true
 }
 
 func (u UPIPayment) Provider() string {
-	// TODO: implement
-	// Read README.md for the instructions
-	return ""
+	return "UPI"
 }
 
 type CryptoPayment struct {
@@ -44,25 +42,28 @@ type CryptoPayment struct {
 }
 
 func (c *CryptoPayment) Process(amount float64) bool {
-	// TODO: implement
-	// Read README.md for the instructions
-	return false
+	check := c.Balance >= amount
+	if check {
+		c.Balance -= amount
+	}
+	return check
 }
 
 func (c CryptoPayment) Provider() string {
-	// TODO: implement
-	// Read README.md for the instructions
-	return ""
+	return "CRYPTO"
 }
 
 func Checkout(p PaymentMethod, amount float64) string {
-	// TODO: implement
 	// Read README.md for the instructions
-	return ""
+	succeed := p.Process(amount)
+	if succeed {
+		return fmt.Sprintf("Payment successful via %s", p.Provider())
+	}
+
+	return fmt.Sprintf("Payment failed via %s", p.Provider())
 }
 
 func DetectCrypto(p PaymentMethod) bool {
-	// TODO: implement
-	// Read README.md for the instructions
-	return false
+	_, ok := p.(*CryptoPayment)
+	return ok
 }

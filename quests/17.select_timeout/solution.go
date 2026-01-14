@@ -1,6 +1,9 @@
 package selecttimeout
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func FunctionOrdered() {
 	c1 := make(chan string)
@@ -11,19 +14,24 @@ func FunctionOrdered() {
 	// TODO:Implement go-routines
 	// Read README.md for the instructions
 	go func() {
-
+		time.Sleep(1 * time.Millisecond)
+		c1 <- "from c1"
 	}()
 	go func() {
-
+		time.Sleep(3 * time.Millisecond)
+		c2 <- "from c2"
 	}()
 	go func() {
-
+		time.Sleep(5 * time.Millisecond)
+		c3 <- "from c3"
 	}()
 	go func() {
-
+		time.Sleep(2 * time.Millisecond)
+		c4 <- "from c4"
 	}()
 	go func() {
-
+		time.Sleep(4 * time.Millisecond)
+		c5 <- "from c5"
 	}()
 	for i := 0; i < 5; i++ {
 		select {

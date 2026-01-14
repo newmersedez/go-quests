@@ -1,14 +1,19 @@
 package goroutine
 
+import "fmt"
+
+
 func SendRequest(input string) string {
-	// TODO: implement
-	// Read README.md for the instructions
-	return ""
+	responses := make(chan string)
+	defer close(responses)
+	
+	go Server(input, responses)
+	
+	response := <- responses
+	return response
 
 }
 
 func Server(request string, response chan string) {
-	// TODO: implement
-	// Read README.md for the instructions
-
+	response <- fmt.Sprintf("processed: %s", request)
 }
